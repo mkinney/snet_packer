@@ -12,6 +12,11 @@ variable "docker_image" {
   default = "ubuntu:jammy"
 }
 
+variable "snet_tarball" {
+  type    = string
+  default = "snet-linux-amd64.tar.gz"
+}
+
 source "docker" "ubuntu" {
   image  = var.docker_image
   commit = true
@@ -39,6 +44,14 @@ build {
   }
   provisioner "shell" {
     inline = ["echo Running $(cat /etc/os-release | grep VERSION= | sed 's/\"//g' | sed 's/VERSION=//g') Docker image."]
+  }
+
+  provisioner "shell" {
+    inline = ["apt-get update; apt-get -y install wget tar"]
+  }
+
+  provisioner "shell" {
+    inline = ["cd bin && wget https://github.com/mkinney/snet/releases/latest/download/${var.snet_tarball} && tar zxf ${var.snet_tarball}"]
   }
 
   post-processor "docker-tag" {
