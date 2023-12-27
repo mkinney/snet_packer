@@ -7,8 +7,13 @@ packer {
   }
 }
 
+variable "docker_image" {
+  type    = string
+  default = "ubuntu:jammy"
+}
+
 source "docker" "ubuntu" {
-  image  = "ubuntu:22.04"
+  image  = var.docker_image
   commit = true
 }
 
@@ -27,7 +32,7 @@ build {
     ]
   }
   provisioner "shell" {
-    inline = ["echo This provisioner runs last"]
+    inline = ["echo Running ${var.docker_image} Docker image."]
   }
 }
 
