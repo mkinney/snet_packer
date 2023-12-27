@@ -15,3 +15,7 @@ packer build .
 packer build --var docker_image=ubuntu:focal .
 
 docker system prune
+
+docker run -it learn-packer:packer-rocks -v
+
+docker run -it learn-packer:packer-rocks -v -c "/usr/bin/snet --help"
