@@ -8,7 +8,7 @@ packer {
 }
 
 source "docker" "ubuntu" {
-  image  = "ubuntu:jammy"
+  image  = "ubuntu:22.04"
   commit = true
 }
 
@@ -17,5 +17,17 @@ build {
   sources = [
     "source.docker.ubuntu"
   ]
+  provisioner "shell" {
+    environment_vars = [
+      "FOO=hello world",
+    ]
+    inline = [
+      "echo Adding file to Docker Container",
+      "echo \"FOO is $FOO\" > example.txt",
+    ]
+  }
+  provisioner "shell" {
+    inline = ["echo This provisioner runs last"]
+  }
 }
 
