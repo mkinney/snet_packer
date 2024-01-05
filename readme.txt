@@ -1,6 +1,8 @@
-Going thru the tutorials
+Build docker image that contains snet
 
-https://developer.hashicorp.com/packer/tutorials/docker-get-started/docker-get-started-build-image
+https://github.com/mkinney/snet
+
+Used https://developer.hashicorp.com/packer/tutorials/docker-get-started/docker-get-started-build-image as a starting guide.
 
 packer init .
 packer fmt .
